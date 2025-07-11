@@ -14,7 +14,10 @@
 <body>
     <!-- شريط الرأس -->
     <header>
-        <h1>تسريع</h1>
+        <div class="header-content">
+            <i class="fas fa-home home-icon" id="home-icon"></i>
+            <h1>تسريع</h1>
+        </div>
     </header>
 
     <!-- الصفحة الرئيسية (عرض المنشورات) -->
@@ -29,6 +32,9 @@
     <!-- صفحة التوثيق (تسجيل دخول / إنشاء حساب) -->
     <div id="auth-page" class="page hidden">
         <div class="auth-container">
+            <button id="close-auth" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
             <h2>تسجيل الدخول / إنشاء حساب</h2>
             <div id="auth-message"></div>
             
@@ -144,4 +150,4 @@
 
     <script src="app.js"></script>
 </body>
-</html>
+                </html>
