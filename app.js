@@ -1,4 +1,3 @@
-// app.js
 // تهيئة Firebase - باستخدام بيانات التهيئة التي قدمتها
 const firebaseConfig = {
     apiKey: "AIzaSyC7z9hhq51EhsdsWfAQmFEYNgCeYqkiAQ8",
@@ -34,20 +33,20 @@ const userInfo = document.getElementById('user-info');
 
 const profileIcon = document.getElementById('profile-icon');
 const addPostIcon = document.getElementById('add-post-icon');
+const homeIcon = document.getElementById('home-icon');
+const closeAuthBtn = document.getElementById('close-auth');
+
+// تحميل المنشورات عند بدء التحميل
+document.addEventListener('DOMContentLoaded', () => {
+    loadPosts();
+});
 
 // استمع لتغير حالة المستخدم
 auth.onAuthStateChanged(user => {
-    if (user) {
-        // المستخدم مسجل الدخول
-        showPage(homePage);
-        loadPosts();
-    } else {
-        // لا يوجد مستخدم مسجل
-        showPage(authPage);
-    }
+    // لا شيء خاص هنا لأن المنشورات تظهر للجميع
 });
 
-// تحميل المنشورات
+// تحميل المنشورات للجميع
 function loadPosts() {
     database.ref('posts').on('value', snapshot => {
         postsContainer.innerHTML = '';
@@ -105,7 +104,10 @@ loginBtn.addEventListener('click', e => {
     auth.signInWithEmailAndPassword(email, password)
         .then(() => {
             showAuthMessage('تم تسجيل الدخول بنجاح!', 'success');
-            setTimeout(() => showPage(homePage), 1500);
+            setTimeout(() => {
+                showPage(homePage);
+                resetAuthForms();
+            }, 1500);
         })
         .catch(error => {
             showAuthMessage(getAuthErrorMessage(error.code), 'error');
@@ -141,7 +143,10 @@ signupBtn.addEventListener('click', e => {
         })
         .then(() => {
             showAuthMessage('تم إنشاء الحساب بنجاح!', 'success');
-            setTimeout(() => showPage(homePage), 1500);
+            setTimeout(() => {
+                showPage(homePage);
+                resetAuthForms();
+            }, 1500);
         })
         .catch(error => {
             showAuthMessage(getAuthErrorMessage(error.code), 'error');
@@ -151,7 +156,7 @@ signupBtn.addEventListener('click', e => {
 // تسجيل الخروج
 logoutBtn.addEventListener('click', () => {
     auth.signOut().then(() => {
-        showPage(authPage);
+        showPage(homePage);
     });
 });
 
@@ -254,6 +259,16 @@ addPostIcon.addEventListener('click', () => {
     }
 });
 
+// العودة للصفحة الرئيسية
+homeIcon.addEventListener('click', () => {
+    showPage(homePage);
+});
+
+// إغلاق صفحة التوثيق
+closeAuthBtn.addEventListener('click', () => {
+    showPage(homePage);
+});
+
 // تغيير علامات التوثيق
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -309,10 +324,14 @@ function resetAddPostForm() {
     document.getElementById('post-phone').value = '';
 }
 
-// تهيئة التطبيق عند التحميل
-document.addEventListener('DOMContentLoaded', () => {
-    // تحميل المنشورات إذا كان المستخدم مسجل الدخول
-    if (auth.currentUser) {
-        loadPosts();
-    }
-});
+function resetAuthForms() {
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-password').value = '';
+    document.getElementById('signup-name').value = '';
+    document.getElementById('signup-phone').value = '';
+    document.getElementById('signup-email').value = '';
+    document.getElementById('signup-password').value = '';
+    document.getElementById('signup-address').value = '';
+    authMessage.textContent = '';
+    authMessage.className = '';
+                       }
