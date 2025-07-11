@@ -1,3 +1,40 @@
+/* التحديثات الجديدة */
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.home-icon {
+    position: absolute;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.3s;
+}
+
+.home-icon:hover {
+    transform: scale(1.1);
+}
+
+.close-btn {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--danger-color);
+}
+
 /* التنسيقات العامة */
 :root {
     --primary-color: #4361ee;
@@ -154,6 +191,7 @@ header h1 {
     padding: 30px;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    position: relative;
 }
 
 .auth-tabs {
@@ -376,5 +414,16 @@ footer {
     
     .icon.highlight {
         padding: 12px;
+    }
+    
+    .home-icon {
+        right: 10px;
+        font-size: 1.3rem;
+    }
+    
+    .close-btn {
+        left: 10px;
+        top: 10px;
+        font-size: 1.3rem;
     }
 }
